@@ -1,0 +1,9 @@
+[
+    {
+        "username": "titus",
+        "profile": "profileImageURL",
+        "background": "bgImageURL",
+        "availability": "10:00 AM - 12:00 PM",
+        "location": "12°34'56\"N 78°90'12\"E"
+    }
+]
