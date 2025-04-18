@@ -14,34 +14,35 @@ const CustomerProfile = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!username) {
-            navigate("/");
-            return;
-        }
+  if (!username) {
+    navigate("/");
+    return;
+  }
 
-        const fetchUser = async () => {
-            try {
-                const res = await fetch("/users.json");
-                const users = await res.json();
-                const userData = users.find((u) => u.username === username);
+  const fetchUser = async () => {
+    try {
+      const response = await fetch("/users.json");
+      const data = await response.json();
+      const userData = data.find(user => user.username === username);
 
-                if (userData) {
-                    setUser(userData);
-                    const postData = JSON.parse(localStorage.getItem(`${username}_posts`)) || [];
-                    setPosts(postData);
-                } else {
-                    alert("User not found.");
-                    navigate("/");
-                }
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-                alert("Something went wrong loading the profile.");
-                navigate("/");
-            }
-        };
+      if (userData) {
+        setUser(userData);
+        const postData = JSON.parse(localStorage.getItem(`${username}_posts`)) || [];
+        setPosts(postData);
+      } else {
+        alert("User not found.");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      alert("Something went wrong.");
+      navigate("/");
+    }
+  };
 
-        fetchUser();
-    }, [username, navigate]);
+  fetchUser();
+}, [username, navigate]);
+
 
     const convertToDMS = (lat, lng) => {
         const toDMS = (deg, isLat) => {
