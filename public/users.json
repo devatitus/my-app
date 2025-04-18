@@ -1,6 +1,8 @@
 [
   {
     "username": "titus",
+    "email": "titus@example.com",
+    "password": "titus123",
     "profile": "profileImageURL",
     "background": "bgImageURL",
     "availability": "10:00 AM - 12:00 PM",
@@ -9,7 +11,7 @@
   {
     "username": "deva123",
     "email": "deva@example.com",
-    "password": "secret",
+    "password": "deva123",
     "profile": "/images/deva-profile.jpg",
     "background": "/images/deva-bg.jpg",
     "availability": "9:00 AM - 5:00 PM",
