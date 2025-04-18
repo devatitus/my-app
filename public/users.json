@@ -1,7 +1,7 @@
 [
   {
     "username": "titus",
-    "email": "titus@example.com",
+    "email": "titus@gmail.com",
     "password": "titus123",
     "profile": "profileImageURL",
     "background": "bgImageURL",
@@ -10,7 +10,7 @@
   },
   {
     "username": "devatitus",
-    "email": "deva@example.com",
+    "email": "deva@gmail.com",
     "password": "deva123",
     "profile": "/images/deva-profile.jpg",
     "background": "/images/deva-bg.jpg",
