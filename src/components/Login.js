@@ -13,13 +13,13 @@ const Login = () => {
     e.preventDefault();
     const users = JSON.parse(localStorage.getItem("users")) || {};
 
-    // Loop through users to find a match with email and password
+    // Find user by email and password
     const userEntry = Object.values(users).find(
       (u) => u.email === email && u.password === password
     );
 
     if (userEntry) {
-      // Get the matched username key
+      // Get the corresponding username (key)
       const matchedUsername = Object.keys(users).find(
         (key) => users[key].email === email && users[key].password === password
       );
@@ -39,12 +39,26 @@ const Login = () => {
       {error && <p className="error">{error}</p>}
       <div className="signup-box">
         <form onSubmit={handleLogin}>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
           <button type="submit">Log in</button>
         </form>
         <div className="signup">
-          <p>Don't have an account? <a href="/signup">Sign up</a></p>
+          <p>
+            Don't have an account? <a href="/signup">Sign up</a>
+          </p>
         </div>
       </div>
     </div>
