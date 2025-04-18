@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import { useNavigate } from "react-router-dom";
 import "../styles/Signup.css";
 import logo from "../assets/logo.webp";
@@ -26,12 +26,14 @@ const Signup = () => {
       setError("All fields are required!");
       return;
     }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
 
     let users = JSON.parse(localStorage.getItem("users")) || {};
+
     if (users[username]) {
       setError("Username already exists!");
       return;
@@ -50,6 +52,7 @@ const Signup = () => {
 
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("currentUser", username);
+
     navigate("/register");
   };
 
