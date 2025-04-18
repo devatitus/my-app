@@ -19,17 +19,28 @@ const CustomerProfile = () => {
             return;
         }
 
-        const users = JSON.parse(localStorage.getItem("users")) || {};
-        const userData = users[username];
+        const fetchUser = async () => {
+            try {
+                const res = await fetch("/users.json");
+                const users = await res.json();
+                const userData = users.find((u) => u.username === username);
 
-        if (userData) {
-            setUser(userData);
-            const userPosts = JSON.parse(localStorage.getItem(`${username}_posts`)) || [];
-            setPosts(userPosts);
-        } else {
-            alert("User not found.");
-            navigate("/");
-        }
+                if (userData) {
+                    setUser(userData);
+                    const postData = JSON.parse(localStorage.getItem(`${username}_posts`)) || [];
+                    setPosts(postData);
+                } else {
+                    alert("User not found.");
+                    navigate("/");
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                alert("Something went wrong loading the profile.");
+                navigate("/");
+            }
+        };
+
+        fetchUser();
     }, [username, navigate]);
 
     const convertToDMS = (lat, lng) => {
@@ -43,33 +54,28 @@ const CustomerProfile = () => {
         };
         return `${toDMS(lat, true)} ${toDMS(lng, false)}`;
     };
-    
+
     const handleSaveLocation = () => {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const lat = position.coords.latitude;
-              const lng = position.coords.longitude;
-              const mapCoords = convertToDMS(lat, lng);
-              const updatedUser = { ...user, location: mapCoords };
-              setUser(updatedUser);
-    
-              const users = JSON.parse(localStorage.getItem("users")) || {};
-              users[user.username] = updatedUser;
-              localStorage.setItem("users", JSON.stringify(users));
-    
-              alert("Location saved!");
-            },
-            () => alert("Unable to access your location.")
-          );
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const mapCoords = convertToDMS(lat, lng);
+                    const updatedUser = { ...user, location: mapCoords };
+                    setUser(updatedUser);
+                    alert("Location saved (temporary, not written to JSON file).");
+                },
+                () => alert("Unable to access your location.")
+            );
         } else {
-          alert("Geolocation not supported.");
+            alert("Geolocation not supported.");
         }
-      };
+    };
 
     const handleViewLocation = () => {
         if (user.location) {
-            const mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${user.location}`;
+            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(user.location)}`;
             window.open(mapUrl, "_blank");
         } else {
             alert("No saved location found.");
@@ -129,7 +135,6 @@ const CustomerProfile = () => {
                 </div>
             )}
 
-            {/* BACKGROUND IMAGE */}
             <img src={user.background || "https://placehold.co/600x300"} alt="Background" className="user-background" />
 
             <div className="profile-container">
@@ -146,12 +151,10 @@ const CustomerProfile = () => {
                 </div>
             </div>
 
-            {/* MENU SECTION */}
             <div className="button-container">
                 <div className="m1"><h1> MENU </h1></div>
             </div>
 
-            {/* SEARCH FIELD */}
             <div className="search-container">
                 <input
                     type="text"
@@ -162,7 +165,6 @@ const CustomerProfile = () => {
                 />
             </div>
 
-            {/* POSTS LIST */}
             {[...posts]
                 .filter((post) =>
                     (post.name && post.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
