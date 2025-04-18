@@ -1,9 +1,27 @@
 [
-    {
-        "username": "titus",
-        "profile": "profileImageURL",
-        "background": "bgImageURL",
-        "availability": "10:00 AM - 12:00 PM",
-        "location": "12°34'56\"N 78°90'12\"E"
-    }
+  {
+    "username": "titus",
+    "profile": "profileImageURL",
+    "background": "bgImageURL",
+    "availability": "10:00 AM - 12:00 PM",
+    "location": "12°34'56\"N 78°90'12\"E"
+  },
+  {
+    "username": "deva123",
+    "email": "deva@example.com",
+    "password": "secret",
+    "profile": "/images/deva-profile.jpg",
+    "background": "/images/deva-bg.jpg",
+    "availability": "9:00 AM - 5:00 PM",
+    "location": "13°04'52\"N 80°16'12\"E"
+  },
+  {
+    "username": "hotelxyz",
+    "email": "xyz@hotel.com",
+    "password": "xyz123",
+    "profile": "/images/hotel-profile.jpg",
+    "background": "/images/hotel-bg.jpg",
+    "availability": "7:00 AM - 11:00 PM",
+    "location": "12°58'30\"N 80°12'40\"E"
+  }
 ]
