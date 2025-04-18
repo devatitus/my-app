@@ -9,22 +9,35 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem("users")) || {};
-
-    // Find user by email and password
-    const userEntry = Object.values(users).find(
+    let users = JSON.parse(localStorage.getItem("users")) || {};
+  
+    // Try localStorage first
+    let userEntry = Object.values(users).find(
       (u) => u.email === email && u.password === password
     );
-
+  
+    // If not found in localStorage, try fetching from users.json
+    if (!userEntry) {
+      try {
+        const response = await fetch("/users.json");
+        const userList = await response.json();
+        userEntry = userList.find(
+          (u) => u.email === email && u.password === password
+        );
+        if (userEntry) {
+          // Save to localStorage so app can use it like other users
+          users[userEntry.username] = userEntry;
+          localStorage.setItem("users", JSON.stringify(users));
+        }
+      } catch (error) {
+        console.error("Failed to fetch user.json:", error);
+      }
+    }
+  
     if (userEntry) {
-      // Get the corresponding username (key)
-      const matchedUsername = Object.keys(users).find(
-        (key) => users[key].email === email && users[key].password === password
-      );
-
-      localStorage.setItem("currentUser", matchedUsername);
+      localStorage.setItem("currentUser", userEntry.username);
       alert("Login successful!");
       navigate("/profile");
     } else {
