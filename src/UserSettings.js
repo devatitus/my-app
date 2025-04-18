@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./UserSettings.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "./assets/logo.webp";
+import {
+  getCurrentUser,
+  getCurrentUserKey,
+  updateCurrentUser
+} from "./users";
 
 // Converts lat/lng to Degrees Minutes Seconds (DMS)
 const convertToDMS = (lat, lng) => {
@@ -46,16 +51,11 @@ const Settings = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-
   const isRegisterMode = location.pathname === "/register";
 
   useEffect(() => {
-    const users = JSON.parse(localStorage.getItem("users")) || {};
-    const currentUser = localStorage.getItem("currentUser");
-
-    if (currentUser && users[currentUser]) {
-      const userData = users[currentUser];
-
+    const userData = getCurrentUser();
+    if (userData) {
       setProfileImage(userData.profile || "");
       setBackgroundImage(userData.background || "");
       setUserName(userData.username || "");
@@ -70,29 +70,16 @@ const Settings = () => {
   }, []);
 
   const handleSave = () => {
-    const openFormatted = convertToAMPM(openingTime);
-    const closeFormatted = convertToAMPM(closingTime);
-    const availability = `${openFormatted} - ${closeFormatted}`;
+    const availability = `${convertToAMPM(openingTime)} - ${convertToAMPM(closingTime)}`;
 
-    const currentUser = localStorage.getItem("currentUser");
-
-    if (!currentUser) {
-      alert("No user logged in.");
-      return;
-    }
-
-    let users = JSON.parse(localStorage.getItem("users")) || {};
-
-    users[currentUser] = {
-      ...users[currentUser],
+    updateCurrentUser({
       profile: profileImage,
       background: backgroundImage,
       username: userName,
-      availability: availability,
-      location: userLocation,
-    };
+      availability,
+      location: userLocation
+    });
 
-    localStorage.setItem("users", JSON.stringify(users));
     navigate("/profile");
   };
 
