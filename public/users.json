@@ -3,8 +3,8 @@
     "username": "Titus gift shop",
     "email": "titus@gmail.com",
     "password": "titus123",
-    "profile": "https://placehold.co/120x120?text=Titus",
-    "background": "https://placehold.co/600x300?text=Background",
+    "profile": "https://placehold.co/120x120",
+    "background": "https://placehold.co/600x300",
     "availability": "10:00 AM - 12:00 PM",
     "location": "13°03'15.8"N 80°06'42.1"E"
   },
@@ -12,8 +12,8 @@
     "username": "devatitus",
     "email": "deva@gmail.com",
     "password": "deva123",
-    "profile": "https://placehold.co/120x120?text=Deva",
-    "background": "https://placehold.co/600x300?text=Background",
+    "profile": "https://placehold.co/120x120",
+    "background": "https://placehold.co/600x300",
     "availability": "9:00 AM - 5:00 PM",
     "location": "13°03'15.8"N 80°06'42.1"E"
   }
