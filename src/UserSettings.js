@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./UserSettings.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "./assets/logo.webp";
+import logo from "./assets/logo1.webp";
 import {
   getCurrentUser,
   getCurrentUserKey,
