@@ -1,7 +1,7 @@
 import React, { useState } from "react"; 
 import { useNavigate } from "react-router-dom";
 import "../styles/Signup.css";
-import logo from "../assets/logo.webp";
+import logo from "../assets/logo1.webp";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
