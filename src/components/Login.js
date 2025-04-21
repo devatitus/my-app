@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <img src={logo} alt="My Menu Logo" className="logo1" />
+      <img src={logo} alt="My Menu Logo" className="logo" />
       <h2>Login</h2>
       {error && <p className="error">{error}</p>}
       <div className="signup-box">
